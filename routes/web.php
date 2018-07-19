@@ -16,6 +16,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//AUTH
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Volunteer
+Route::resource('/activity','ActivityController');
+
+
 //THEME
 Route::get('/dashboard', function () {
     return view('monster-lite/index');
@@ -45,11 +53,7 @@ Route::get('/table-basic', function () {
 
 
 //OTHERS
-Route::resource('/activity','ActivityController');
 Route::get('/bootstrap', function () {
  return view('bootstrap/index');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
