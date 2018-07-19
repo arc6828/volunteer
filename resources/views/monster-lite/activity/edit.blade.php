@@ -15,13 +15,13 @@
 			    @forelse($table_activity as $row)
 		    	<div class="row"> 
 		    		<div class="col-md-9 align-self-center">		    			
-				        <h4 class="card-title">Form : {{ $row->id_activity }}</h4>
-				        <h6 class="card-subtitle">Fill a new item in the form and then save</h6>
+				        <h4 class="card-title">Item : {{ $row->id_activity }}</h4>
+				        <h6 class="card-subtitle">Update new infomation in the form</h6>
 		    		</div>
 		    		<div class="col-md-3 align-self-center">							
 						<div class="dropdown pull-right">
 							<button type="button" class="btn btn-secondary btn-circle btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" style="border: none;"><i class="fa fa-ellipsis-v"></i> </button>							
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 								<form id="form-delete" style="display: none;" action="{{ url('/') }}/activity/{{ $row->id_activity }}" method="POST">
 									{{ csrf_field() }}
 									{{ method_field('DELETE') }}
@@ -85,7 +85,7 @@
 	                <div class="form-group">
                         <div class="col-sm-12">
                         	<div class="pull-right">
-								<a class="btn btn-default button_back" href="{{ url('/') }}/activity">back</a>
+								<a class="btn btn-outline-primary" href="{{ url('/') }}/activity">back</a>
 								<button class="btn btn-success" type="submit" >Update</button>                        		
                         	</div>
                         </div>
