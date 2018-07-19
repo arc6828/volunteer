@@ -1,6 +1,12 @@
 <aside class="left-sidebar">
+    
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
+        <div class="text-center">
+            <div><img src="{{url('/')}}/assets/images/users/1.jpg" alt="user" class="rounded-circle mt-0 mb-3" width="100" /></div>
+            <div>Markarn</div>
+        </div>
+        <hr>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
 
@@ -28,9 +34,9 @@
                 </li>
 
                 <hr />
-                
+
                 <li>
-                    <a href="{{url('/')}}/logout" class="waves-effect"><i class="fa fa-sign-out m-r-10" aria-hidden="true"></i>Logout</a>
+                    <a href="{{url('/')}}/logout" class="waves-effect"><i class="fa fa-power-off m-r-10" aria-hidden="true"></i>Logout</a>
                 </li>
 
                 <hr />
