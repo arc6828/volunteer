@@ -7,6 +7,7 @@
         </ol>
     </div>
     <div class="col-md-6 col-4 align-self-center">
-        <a href="https://wrappixel.com/templates/monsteradmin/" class="btn pull-right hidden-sm-down btn-success"> Upgrade to Pro</a>
+        @yield('breadcrumb-menu')
+        <a href="https://wrappixel.com/templates/monsteradmin/" class="hide btn pull-right hidden-sm-down btn-success"> Upgrade to Pro</a>
     </div>
 </div>

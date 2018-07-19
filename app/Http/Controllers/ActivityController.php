@@ -27,7 +27,7 @@ class ActivityController extends Controller
  'table_activity' => $table_activity,
  'q' => $q
     ];
-    return view('activity/index',$data);
+    return view('monster-lite/activity/index',$data);
     }
 
     /**
@@ -37,7 +37,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-     return view('activity/create');
+     return view('monster-lite/activity/create');
     }
 
     /**
@@ -74,7 +74,7 @@ class ActivityController extends Controller
  $data = [
  'table_activity' => $table_activity
  ];
- return view('activity/show',$data);
+ return view('monster-lite/activity/show',$data);
 
     }
 
@@ -91,7 +91,7 @@ class ActivityController extends Controller
     $data = [
     'table_activity' => $table_activity
     ];
-    return view('activity/edit',$data);
+    return view('monster-lite/activity/edit',$data);
     }
 
     /**
