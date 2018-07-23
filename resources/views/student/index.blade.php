@@ -1,4 +1,15 @@
-<link href="{{ url('/') }}/style.css" rel="stylesheet" type="text/css">
+@extends('monster-lite/layouts/theme')
+
+@section('title','Activity')
+
+@section('breadcrumb-menu')
+<a href="{{ url('/') }}/activity/create" class="btn pull-right hidden-sm-down btn-success"> 
+	<i class="fa fa-plus"></i> New Activity
+</a>
+@endsection
+
+@section('content') 
+
 <h1>Student List</h1>
 <div class="line">
 <a href="{{ url('/') }}/student/create">New student</a>
@@ -32,3 +43,5 @@
 </tr>
 @endforeach
 </table>
+
+@endsection

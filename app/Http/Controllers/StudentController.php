@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin_dsd,admin_faculty') ;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -125,8 +131,5 @@ class StudentController extends Controller
 
     }
 
-    public function __construct()
-    {
-        $this->middleware('role:customer');
-    }
+    
 }

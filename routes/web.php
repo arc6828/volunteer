@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Volunteer
 Route::resource('/activity','ActivityController');
 
+Route::resource('/student','StudentController');
 
 //THEME
 Route::get('/dashboard', function () {
