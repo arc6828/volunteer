@@ -13,8 +13,8 @@
 		    <div class="card-block">
 		    	<div class="row"> 
 		    		<div class="col-md-9 align-self-center">		    			
-				        <h4 class="card-title">Form</h4>
-				        <h6 class="card-subtitle">Fill a new item in the form and then save</h6>
+				        <h4 class="card-title">A new item</h4>
+				        <h6 class="card-subtitle">Fill a new item in the form and then create</h6>
 		    		</div>
 		    		<div class="col-md-3 align-self-center">
 						  						
@@ -69,7 +69,7 @@
 	                <div class="form-group">
                         <div class="col-sm-12">
                         	<div class="pull-right">
-								<a class="btn btn-default button_back" href="{{ url('/') }}/activity">back</a>
+								<a class="btn btn-outline-primary" href="{{ url('/') }}/activity">back</a>
 								<button class="btn btn-success" type="submit" >Create</button>                        		
                         	</div>
                         </div>
@@ -77,8 +77,7 @@
 				</form>		    
 			</div>	
 		</div>	
-	</div>
-			
+	</div>	
 </div>
 
 @endsection 

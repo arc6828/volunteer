@@ -1,45 +1,95 @@
-@extends('layout/template-pricing')
+@extends('monster-lite/layouts/theme')
+
+@section('title','Activity Detail')
+
+@section('breadcrumb-menu')
+
+@endsection
+
 @section('content')
-<link href="{{ url('/') }}/style.css" rel="stylesheet" type="text/css">
-<center>
-@forelse($table_activity as $row)
-<h1>Activity : {{ $row->id_activity }} </h1>
-<div class="line">
-<strong>Activity_name : </strong>
-<span>{{ $row->activity_name }} </span>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card">
+		    <div class="card-block">
+			    @forelse($table_activity as $row)
+		    	<div class="row"> 
+		    		<div class="col-md-9 align-self-center">		    			
+				        <h4 class="card-title">Form : {{ $row->id_activity }}</h4>
+				        <h6 class="card-subtitle">Fill a new item in the form and then save</h6>
+		    		</div>
+		    		<div class="col-md-3 align-self-center">
+						  						
+		    		</div>
+		    	</div>
+		    	
+    			<form class="form-material" action="{{ url('/') }}/activity" method="POST">
+					{{ csrf_field() }}
+					{{ method_field('PUT') }}
+					<div class="form-group">
+	                    <label class="col-md-12">ActivityName</label>
+	                    <div class="col-md-12">
+							<input type="text" name="activity_name" class="form-control form-control-line" value="{{ $row->activity_name }}" readonly>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-md-12">Date Start</label>
+	                    <div class="col-md-12">
+							<input type="date" name="date_start" class="form-control form-control-line"  value="{{ $row->date_start }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-md-12">Place</label>
+	                    <div class="col-md-12">
+							<input type="text" name="place" class="form-control form-control-line"  value="{{ $row->place }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-md-12">Max hour</label>
+	                    <div class="col-md-12">
+							<input type="number" name="max_hour"  class="form-control form-control-line"  value="{{ $row->max_hour }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-md-12">ID semester</label>
+	                    <div class="col-md-12">
+							<input type="number" name="id_semester"  class="form-control form-control-line" value="{{ $row->id_semester }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-md-12">Id activity type</label>
+	                    <div class="col-md-12">
+							<input type="number" name="id_activity_type"  class="form-control form-control-line" value="{{ $row->id_activity_type }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-md-12">Id major</label>
+	                    <div class="col-md-12">
+							<input type="number" name="id_major"  class="form-control form-control-line" value="{{ $row->id_major }}" readonly>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+                        <div class="col-sm-12">
+                        	<div class="pull-right">
+								<a class="btn btn-default" href="{{ url('/') }}/activity">back</a>
+								<a class="btn btn-warning"href="{{ url('/') }}/activity/{{ $row->id_activity }}/edit">edit</a>
+								<form style="display: inline-block;" action="{{ url('/') }}/activity/{{ $row->id_activity }}" method="POST">
+									{{ csrf_field() }}
+									{{ method_field('DELETE') }}
+									<button class="btn btn-danger" type="submit">Delete</button>
+								</form>
+                        	</div>
+                        </div>
+                    </div>					
+				</form>		
+
+				@empty
+				<div class="text-center">
+					This activity id ({{ $row->id_activity }}) does not exist
+				</div>
+				@endforelse    
+			</div>	
+		</div>	
+	</div>	
 </div>
-<div class="line">
-<strong>Date_start : </strong>
-<span>{{ $row->date_start }}</span>
-</div>
-<div class="line">
-<strong>Place</strong>
-<span>{{ $row->place }}</span>
-</div>
-<div class="line">
-<strong>Max_hour</strong>
-<span>{{ $row->max_hour }}</span>
-</div>
-<strong>Id_semester</strong>
-<span>{{ $row->id_semester }}</span>
-</div>
-<strong>Id_activity_type</strong>
-<span>{{ $row->id_activity_type }}</span>
-</div>
-<strong>Id_major</strong>
-<span>{{ $row->id_major }}</span>
-</div>
-<div class="line">
-<a href="{{ url('/') }}/activity">back</a>
-<a href="{{ url('/') }}/activity/{{ $row->id_activity }}/edit">edit</a>
-<form class="inline" action="{{ url('/') }}/activity/{{ $row->id_activity }}" method="POST">
-{{ csrf_field() }}
-{{ method_field('DELETE') }}
-<button type="submit">Delete</button>
-</form>
-</div>
-@empty
-<div>This Activity id does not exist</div>
-</center>
-@endforelse
 @endsection 
