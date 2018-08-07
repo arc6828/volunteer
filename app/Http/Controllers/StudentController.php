@@ -31,7 +31,7 @@ class StudentController extends Controller
 
 
         ];
-        return view('student/index',$data);
+        return view('monster-lite/student/index',$data);
     }
 
     /**
@@ -41,7 +41,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student/create');
+        return view('monster-lite/student/create');
     }
 
     /**
@@ -77,7 +77,7 @@ class StudentController extends Controller
         $data = [
         'table_student' => $table_student
         ];
-        return view('student/show',$data);
+        return view('monster-lite/student/show',$data);
 
     }
 
@@ -94,7 +94,7 @@ class StudentController extends Controller
         $data = [
         'table_student' => $table_student
         ];
-        return view('student/edit',$data);
+        return view('monster-lite/student/edit',$data);
 
     }
 

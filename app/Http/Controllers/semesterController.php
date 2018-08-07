@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\semesterModel;
+use App\SemesterModel;
 use Illuminate\Http\Request;
 
-class semesterController extends Controller
+class SemesterController extends Controller
 {
+    
+    public function __construct()
+    { 
+        $this->middleware('auth');    
+        $this->middleware('role:admin_dsd');
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $model = new semesterModel();
         /*$table_semester = $model->select();*/
@@ -25,7 +31,7 @@ class semesterController extends Controller
             'table_semester' => $table_semester,
             'q' => $q
         ];
-        return view('semester/index',$data);
+        return view('monster-lite/semester/index',$data);
     }
 
     /**
@@ -35,7 +41,7 @@ class semesterController extends Controller
      */
     public function create()
     {
-        return view('semester/create');
+        return view('monster-lite/semester/create');
     }
 
     /**
@@ -67,7 +73,7 @@ class semesterController extends Controller
         $data = [
             'table_semester' => $table_semester
         ];
-        return view('semester/show',$data);
+        return view('monster-lite/semester/show',$data);
     }
 
     /**
@@ -83,7 +89,7 @@ class semesterController extends Controller
         $data = [
             'table_Semester' => $table_Semester
         ];
-        return view('Semester/show',$data);
+        return view('monster-lite/semester/show',$data);
     }
 
     /**
@@ -116,9 +122,5 @@ class semesterController extends Controller
 
         return redirect('/Semester');
     }
-    public function __construct()
-{ 
-    $this->middleware('auth');    
-    $this->middleware('role:admin,Semester') ;
-}
+
 }

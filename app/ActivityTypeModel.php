@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class activity_typeModel extends Model
+class ActivityTypeModel
 {
     function select(){
 		$sql = "select * from activity_type";
@@ -12,7 +12,7 @@ class activity_typeModel extends Model
 	}
 
 	function select_id($id){
-		$sql = "select * from activity_type where id = {$id}";
+		$sql = "select * from activity_type where id_activity_type = {$id}";
 		return DB::select($sql, []);
 	}
 
@@ -27,14 +27,15 @@ class activity_typeModel extends Model
 		DB::insert($sql, []);
 	}
 
-	function update($activity_type_name){
+	function update($id,$activity_type_name){
 		$sql = "update activity_type set 
-				activity_type_name = '{$activity_type_name}';
+				activity_type_name = '{$activity_type_name}'
+				where id_activity_type = {$id}";
 		DB::update($sql, []);
 	}
 
 	function delete($id){
-		$sql = "delete from teacher where id = {$id}";
+		$sql = "delete from teacher where id_act_mem_auto = {$id}";
 		DB::delete($sql, []);
 	}
 

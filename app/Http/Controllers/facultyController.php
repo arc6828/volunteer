@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\FacultyModel;
 use Illuminate\Http\Request;
 
-class facultyController extends Controller
+class FacultyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class facultyController extends Controller
             'table_faculty' => $table_faculty,
             'q' => $q
         ];
-        return view('faculty/index',$data);
+        return view('monster-lite/faculty/index',$data);
     }
 
     /**
@@ -34,7 +34,7 @@ class facultyController extends Controller
      */
     public function create()
     {
-        return view('faculty/create');
+        return view('monster-lite/faculty/create');
     }
 
     /**
@@ -67,7 +67,7 @@ class facultyController extends Controller
         $data = [
             'table_faculty' => $table_faculty
         ];
-        return view('faculty/show',$data);
+        return view('monster-lite/faculty/show',$data);
 
     }
     /**
@@ -83,7 +83,7 @@ class facultyController extends Controller
         $data = [
             'table_faculty' => $table_faculty
         ];
-        return view('faculty/edit',$data);
+        return view('monster-lite/faculty/edit',$data);
 
     }
 

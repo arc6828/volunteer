@@ -11,17 +11,15 @@
         <nav class="sidebar-nav">
 
             <ul id="sidebarnav">
-                <li>
-                    <a href="{{url('/')}}/student" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Student</a>
-                </li>
+                
                 <li>
                     <a href="{{url('/')}}/activity" class="waves-effect"><i class="fa fa-cube m-r-10" aria-hidden="true"></i>Activity</a>
                 </li>
                 <li>
-                    <a href="{{url('/')}}/activity-type" class="waves-effect"><i class="fa fa-cubes m-r-10" aria-hidden="true"></i>Activity Type</a>
+                    <a href="{{url('/')}}/activity-member" class="waves-effect"><i class="fa fa-users m-r-10" aria-hidden="true"></i>Activity Member</a>
                 </li>
                 <li>
-                    <a href="{{url('/')}}/activity-member" class="waves-effect"><i class="fa fa-users m-r-10" aria-hidden="true"></i>Activity Member</a>
+                    <a href="{{url('/')}}/activity-type" class="waves-effect"><i class="fa fa-cubes m-r-10" aria-hidden="true"></i>Activity Type</a>
                 </li>
                 <li>
                     <a href="{{url('/')}}/faculty" class="waves-effect"><i class="fa fa-gear m-r-10" aria-hidden="true"></i>Faculty</a>
@@ -31,6 +29,9 @@
                 </li>
                 <li>
                     <a href="{{url('/')}}/semester" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Semester</a>
+                </li>
+                <li>
+                    <a href="{{url('/')}}/student" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Student</a>
                 </li>
 
                 <hr />

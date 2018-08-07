@@ -29,7 +29,7 @@ public function __construct()
             'table_activity_member' => $table_activity_member,
             'q' => $q
         ];
-        return view('activity_member/index',$data);
+        return view('monster-lite/activity_member/index',$data);
     }
 
     /**
@@ -39,7 +39,7 @@ public function __construct()
      */
     public function create()
     {
-        return view('activity_member/create');
+        return view('monster-lite/activity_member/create');
     }
 
     /**
@@ -57,7 +57,7 @@ public function __construct()
         $model = new ActivityMemberModel();
         $model->insert($id_student, $id_activity, $hour);
 
-        return redirect('/activity_member');
+        return redirect('activity-member');
 
     }
 
@@ -74,7 +74,7 @@ public function __construct()
         $data = [
             'table_activity_member' => $table_activity_member
         ];
-        return view('activity_member/show',$data);
+        return view('monster-lite/activity_member/show',$data);
 
     }
 
@@ -91,7 +91,7 @@ public function __construct()
         $data = [
             'table_activity_member' => $table_activity_member
         ];
-        return view('activity_member/edit',$data);
+        return view('monster-lite/activity_member/edit',$data);
 
     }
 
@@ -111,7 +111,7 @@ public function __construct()
         $model = new ActivityMemberModel();
         $model->update($id_student, $id_activity, $hour,$id);
 
-        return redirect('/activity_member');
+        return redirect('activity-member');
 
     }
 
@@ -126,7 +126,7 @@ public function __construct()
         $model = new ActivityMemberModel();
         $model->delete($id);
 
-        return redirect('/activity_member');
+        return redirect('activity-member');
 
     }
 

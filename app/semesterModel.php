@@ -2,16 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class SemesterModel extends Model
+class SemesterModel
 {
     function select(){
 		$sql = "select * from semester";
 		return DB::select($sql, []);
 	}
 
-	function select_id($id _semester){
+	function select_id($id_semester){
 		$sql = "select * from semester where id_semester = {$id_semester}";
 		return DB::select($sql, []);
 	}

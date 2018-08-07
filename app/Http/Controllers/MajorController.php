@@ -25,7 +25,7 @@ class MajorController extends Controller
         $table_major = $model->select_search($q);
 
         $data = ['table_major' => $table_major,'q' => $q];
-        return view('major/index',$data);
+        return view('monster-lite/major/index',$data);
     }
     /**
      * Show the form for creating a new resource.
@@ -34,7 +34,7 @@ class MajorController extends Controller
      */
     public function create()
     {
-    return view('major/create');
+    return view('monster-lite/major/create');
     }
 
 
@@ -69,7 +69,7 @@ class MajorController extends Controller
         $data = [
             'table_major' => $table_major
         ];
-        return view('major/show',$data);
+        return view('monster-lite/major/show',$data);
 
     }
 
@@ -87,7 +87,7 @@ class MajorController extends Controller
         $data = [
             'table_major' => $table_major
         ];
-        return view('major/edit',$data);
+        return view('monster-lite/major/edit',$data);
 
     }
 

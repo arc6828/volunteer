@@ -22,7 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Volunteer
 Route::resource('/activity','ActivityController');
-
+Route::resource('/activity-member', 'ActivityMemberController');
+Route::resource('/activity-type','ActivityTypeController');
+Route::resource('/faculty','FacultyController');
+Route::resource('/major','MajorController');
+Route::resource('/semester', 'SemesterController');
 Route::resource('/student','StudentController');
 
 //THEME

@@ -10,8 +10,8 @@ class ActivityController extends Controller
 
     public function __construct()
     {
-    $this->middleware('auth');
-    $this->middleware('role:admin_dsd,admin_faculty') ;
+        $this->middleware('auth');
+        $this->middleware('role:admin_dsd,admin_faculty') ;
     }
     /**
      * Display a listing of the resource.
@@ -22,10 +22,10 @@ class ActivityController extends Controller
     {
     $model = new ActivityModel();
     $q = $request->input('q');
- $table_activity = $model->select_search($q);
- $data = [
- 'table_activity' => $table_activity,
- 'q' => $q
+    $table_activity = $model->select_search($q);
+    $data = [
+         'table_activity' => $table_activity,
+         'q' => $q
     ];
     return view('monster-lite/activity/index',$data);
     }
@@ -37,7 +37,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-     return view('monster-lite/activity/create');
+        return view('monster-lite/activity/create');
     }
 
     /**
