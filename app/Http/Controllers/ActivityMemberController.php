@@ -10,7 +10,7 @@ class ActivityMemberController extends Controller
 public function __construct()
 {
     $this->middleware('auth');
-    $this->middleware('role:student,admin_faculty,admin_dsd');
+    //$this->middleware('role:student,admin_faculty,admin_dsd');
 
         
 }

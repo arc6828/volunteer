@@ -11,7 +11,7 @@ class ActivityController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:admin_dsd,admin_faculty') ;
+        //$this->middleware('role:admin_dsd,admin_faculty') ;
     }
     /**
      * Display a listing of the resource.

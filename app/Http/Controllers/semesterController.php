@@ -11,7 +11,7 @@ class SemesterController extends Controller
     public function __construct()
     { 
         $this->middleware('auth');    
-        $this->middleware('role:admin_dsd');
+        //$this->middleware('role:admin_dsd');
     }
 
     /**
