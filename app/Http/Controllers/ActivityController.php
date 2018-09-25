@@ -20,14 +20,14 @@ class ActivityController extends Controller
      */
     public function index(Request $request)
     {
-    $model = new ActivityModel();
-    $q = $request->input('q');
-    $table_activity = $model->select_search($q);
-    $data = [
-         'table_activity' => $table_activity,
-         'q' => $q
-    ];
-    return view('monster-lite/activity/index',$data);
+        $model = new ActivityModel();
+        $q = $request->input('q');
+        $table_activity = $model->select_search($q);
+        $data = [
+             'table_activity' => $table_activity,
+             'q' => $q
+        ];
+        return view('volunteer/activity/index',$data);
     }
 
     /**
@@ -37,7 +37,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return view('monster-lite/activity/create');
+        return view('volunteer/activity/create');
     }
 
     /**
@@ -48,17 +48,16 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-     $activity_name = $request->input('activity_name');
-     $date_start = $request->input('date_start');
-     $place = $request->input('place');
-     $max_hour = $request->input('max_hour');
-     $id_semester = $request->input('id_semester');
-     $id_activity_type = $request->input('id_activity_type');
-     $id_major = $request->input('id_major');
-     $model = new ActivityModel();
-     $model->insert($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major);
-    return redirect('/activity');
-
+        $activity_name = $request->input('activity_name');
+        $date_start = $request->input('date_start');
+        $place = $request->input('place');
+        $max_hour = $request->input('max_hour');
+        $id_semester = $request->input('id_semester');
+        $id_activity_type = $request->input('id_activity_type');
+        $id_major = $request->input('id_major');
+        $model = new ActivityModel();
+        $model->insert($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major);
+        return redirect('/activity');
     }
 
     /**
@@ -70,12 +69,11 @@ class ActivityController extends Controller
     public function show($id_activity)
     {
         $model = new ActivityModel();
- $table_activity = $model->select_id($id_activity);
- $data = [
- 'table_activity' => $table_activity
- ];
- return view('monster-lite/activity/show',$data);
-
+        $table_activity = $model->select_id($id_activity);
+        $data = [
+        'table_activity' => $table_activity
+        ];
+        return view('volunteer/activity/show',$data);
     }
 
     /**
@@ -87,11 +85,11 @@ class ActivityController extends Controller
     public function edit($id_activity)
     {
         $model = new ActivityModel();
-     $table_activity = $model->select_id($id_activity);
-    $data = [
-    'table_activity' => $table_activity
-    ];
-    return view('monster-lite/activity/edit',$data);
+        $table_activity = $model->select_id($id_activity);
+        $data = [
+        'table_activity' => $table_activity
+        ];
+        return view('volunteer/activity/edit',$data);
     }
 
     /**
@@ -103,16 +101,16 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id_activity)
     {
-    $activity_name = $request->input('activity_name');
-     $date_start = $request->input('date_start');
-     $place = $request->input('place');
-     $max_hour = $request->input('max_hour');
-     $id_semester = $request->input('id_semester');
-     $id_activity_type = $request->input('id_activity_type');
-     $id_major = $request->input('id_major');
-     $model = new ActivityModel();
-     $model->update($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major, $id_activity);
-    return redirect('/activity');
+        $activity_name = $request->input('activity_name');
+        $date_start = $request->input('date_start');
+        $place = $request->input('place');
+        $max_hour = $request->input('max_hour');
+        $id_semester = $request->input('id_semester');
+        $id_activity_type = $request->input('id_activity_type');
+        $id_major = $request->input('id_major');
+        $model = new ActivityModel();
+        $model->update($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major, $id_activity);
+        return redirect('/activity');
 
     }
 
@@ -125,7 +123,7 @@ class ActivityController extends Controller
     public function destroy($id_activity)
     {
         $model = new ActivityModel();
- $model->delete($id_activity);
- return redirect('/activity');
+        $model->delete($id_activity);
+        return redirect('/activity');
     }
 }
