@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivityModel;
 use Illuminate\Http\Request;
+use App\ActivityModel;
+use App\ActivityTypeModel;
+use App\MajorModel;
+use App\SemesterModel;
 
 class ActivityController extends Controller
 {
@@ -20,9 +23,8 @@ class ActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new ActivityModel();
         $q = $request->input('q');
-        $table_activity = $model->select_search($q);
+        $table_activity = ActivityModel::select_by_activity_name($q);
         $data = [
              'table_activity' => $table_activity,
              'q' => $q
@@ -37,7 +39,15 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return view('volunteer/activity/create');
+        $table_activity_type = ActivityTypeModel::select_all();
+        $table_semester = SemesterModel::select_all();
+        $table_major = MajorModel::select_all();
+        $data = [
+            'table_activity_type' => $table_activity_type,
+            'table_semester' => $table_semester,
+            'table_major' => $table_major,
+        ];
+        return view('volunteer/activity/create',$data);
     }
 
     /**
@@ -48,15 +58,20 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $activity_name = $request->input('activity_name');
-        $date_start = $request->input('date_start');
-        $place = $request->input('place');
-        $max_hour = $request->input('max_hour');
-        $id_semester = $request->input('id_semester');
-        $id_activity_type = $request->input('id_activity_type');
-        $id_major = $request->input('id_major');
-        $model = new ActivityModel();
-        $model->insert($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major);
+        $input = [
+            'activity_name'      => $request->input('activity_name'),
+            'date_begin'         => $request->input('date_begin'),
+            'date_end'           => $request->input('date_end'),
+            'time_begin'         => $request->input('time_begin'),
+            'time_end'           => $request->input('time_end'),
+            'place'              => $request->input('place'),
+            'duration_hour'      => $request->input('duration_hour'),
+            'semester_id'        => $request->input('semester_id'),
+            'activity_type_id'   => $request->input('activity_type_id'),
+            'major_id'           => $request->input('major_id'),
+        ];
+        ActivityModel::insert($input);
+
         return redirect('/activity');
     }
 
@@ -66,12 +81,11 @@ class ActivityController extends Controller
      * @param  \App\ActivityModel  $activityModel
      * @return \Illuminate\Http\Response
      */
-    public function show($id_activity)
+    public function show($id)
     {
-        $model = new ActivityModel();
-        $table_activity = $model->select_id($id_activity);
+        $table_activity = ActivityModel::select_by_id($id);
         $data = [
-        'table_activity' => $table_activity
+            'table_activity' => $table_activity
         ];
         return view('volunteer/activity/show',$data);
     }
@@ -82,12 +96,17 @@ class ActivityController extends Controller
      * @param  \App\ActivityModel  $activityModel
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_activity)
+    public function edit($id)
     {
-        $model = new ActivityModel();
-        $table_activity = $model->select_id($id_activity);
+        $table_activity = ActivityModel::select_by_id($id);
+        $table_activity_type = ActivityTypeModel::select_all();
+        $table_semester = SemesterModel::select_all();
+        $table_major = MajorModel::select_all();
         $data = [
-        'table_activity' => $table_activity
+            'table_activity' => $table_activity,
+            'table_activity_type' => $table_activity_type,
+            'table_semester' => $table_semester,
+            'table_major' => $table_major,
         ];
         return view('volunteer/activity/edit',$data);
     }
@@ -99,17 +118,21 @@ class ActivityController extends Controller
      * @param  \App\ActivityModel  $activityModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_activity)
+    public function update(Request $request, $id)
     {
-        $activity_name = $request->input('activity_name');
-        $date_start = $request->input('date_start');
-        $place = $request->input('place');
-        $max_hour = $request->input('max_hour');
-        $id_semester = $request->input('id_semester');
-        $id_activity_type = $request->input('id_activity_type');
-        $id_major = $request->input('id_major');
-        $model = new ActivityModel();
-        $model->update($activity_name, $date_start, $place, $max_hour, $id_semester, $id_activity_type, $id_major, $id_activity);
+        $input = [
+            'activity_name'      => $request->input('activity_name'),
+            'date_begin'         => $request->input('date_begin'),
+            'date_end'           => $request->input('date_end'),
+            'time_begin'         => $request->input('time_begin'),
+            'time_end'           => $request->input('time_end'),
+            'place'              => $request->input('place'),
+            'duration_hour'      => $request->input('duration_hour'),
+            'semester_id'        => $request->input('semester_id'),
+            'activity_type_id'   => $request->input('activity_type_id'),
+            'major_id'           => $request->input('major_id'),
+        ];
+        ActivityModel::update_by_id($input,$id);
         return redirect('/activity');
 
     }
@@ -120,10 +143,9 @@ class ActivityController extends Controller
      * @param  \App\ActivityModel  $activityModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_activity)
+    public function destroy($id)
     {
-        $model = new ActivityModel();
-        $model->delete($id_activity);
+        ActivityModel::delete_by_id($id);
         return redirect('/activity');
     }
 }
