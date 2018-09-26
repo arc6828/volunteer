@@ -36,8 +36,8 @@ class ActivityModel  extends Model
 	}
 
 	public static function delete_by_id($id){
-		$sql = "DELETE FROM activity WHERE activity_id = {$id}";
-		DB::delete($sql, []);
+        DB::table('activity')
+            ->where('activity_id', '=', $id)
+            ->delete();
 	}
-
 }

@@ -37,7 +37,7 @@
 		<div class="row">
 			@foreach($table_activity as $row)
     		<div class="col-lg-4">
-				<a href="{{ url('/') }}/activity/{{$row->activity_id}}/edit">
+				<a href="{{ url('/') }}/activity/{{$row->activity_id}}">
 					<div class="event-container">
 						<div><img src="{{ url('/') }}/img/no-photo-event.jpg" width="100%"></div>
 						<div class="event-description">

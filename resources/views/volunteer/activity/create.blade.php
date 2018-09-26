@@ -27,49 +27,50 @@
 					<div class="form-group">
 	                    <label class="col-md-12">ActivityName : </label>
 	                    <div class="col-md-12">
-							<input type="text" name="activity_name" class="form-control form-control-line"  >
+							<input type="text" name="activity_name" class="form-control form-control-line" required >
 	                    </div>
 	                </div>
 					<div class="form-group">
 	                    <label class="col-md-12">Date Begin : </label>
 	                    <div class="col-md-12">
-							<input type="date" name="date_begin" class="form-control form-control-line"   >
+							<input type="date" name="date_begin" class="form-control form-control-line"   required>
 	                    </div>
 	                </div>
 					<div class="form-group">
 	                    <label class="col-md-12">Date End : </label>
 	                    <div class="col-md-12">
-							<input type="date" name="date_end" class="form-control form-control-line"   >
+							<input type="date" name="date_end" class="form-control form-control-line"  required >
 	                    </div>
 	                </div>
 					<div class="form-group">
 	                    <label class="col-md-12">Time Begin : </label>
 	                    <div class="col-md-12">
-							<input type="time" name="time_begin" class="form-control form-control-line"   >
+							<input type="time" name="time_begin" class="form-control form-control-line"  required >
 	                    </div>
 	                </div>
 					<div class="form-group">
 	                    <label class="col-md-12">Time End : </label>
 	                    <div class="col-md-12">
-							<input type="time" name="time_end" class="form-control form-control-line"   >
+							<input type="time" name="time_end" class="form-control form-control-line"  required >
 	                    </div>
 	                </div>
 	                <div class="form-group">
 	                    <label class="col-md-12">Place : </label>
 	                    <div class="col-md-12">
-							<input type="text" name="place" class="form-control form-control-line"  >
+							<input type="text" name="place" class="form-control form-control-line"  required>
 	                    </div>
 	                </div>
 	                <div class="form-group">
 	                    <label class="col-md-12">Duration Hour : </label>
 	                    <div class="col-md-12">
-							<input type="number" name="duration_hour"  class="form-control form-control-line"   >
+							<input type="number" name="duration_hour"  class="form-control form-control-line"   required>
 	                    </div>
 	                </div>
 	                <div class="form-group">
 	                    <label class="col-md-12">Semester ID : </label>
 	                    <div class="col-md-12">
-							<select name="semester_id" class="form-control">
+							<select name="semester_id" class="form-control" required>
+                                <option value="" >None</option>
 								@foreach($table_semester as $row_semester)
 								<option value="{{ $row_semester->semester_id }}" >
 									{{ $row_semester->semester_year }} / {{ $row_semester->semester_no }}
@@ -81,7 +82,8 @@
 	                <div class="form-group">
 	                    <label class="col-md-12">Activity Type ID : </label>
 	                    <div class="col-md-12">
-							<select name="activity_type_id" class="form-control">
+							<select name="activity_type_id" class="form-control" required>
+                                <option value="" >None</option>
 								@foreach($table_activity_type as $row_activity_type)
 								<option value="{{ $row_activity_type->activity_type_id }}" >
 									{{ $row_activity_type->activity_type_name }}
@@ -93,7 +95,8 @@
 	                <div class="form-group">
 	                    <label class="col-md-12">Major ID : </label>
 	                    <div class="col-md-12">
-							<select name="major_id" class="form-control">
+							<select name="major_id" class="form-control" required>
+                                <option value="" >None</option>
 								@foreach($table_major as $row_major)
 								<option value="{{ $row_major->major_id }}" >
 									{{ $row_major->major_name }}

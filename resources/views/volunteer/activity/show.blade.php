@@ -3,7 +3,9 @@
 @section('title','Activity')
 
 @section('breadcrumb-menu')
-
+<a href="{{ url('/') }}/activity/{{ $id }}/edit" class="btn pull-right hidden-sm-down btn-success">
+	<i class="fa fa-pencil"></i> Edit Activity
+</a>
 @endsection
 
 @section('content')
@@ -38,6 +40,14 @@
 		    	</div>
 
     			<div>
+                    <div class="form-group">
+	                    <div class="col-md-12 text-center">
+                            <a href="{{ url('/') }}/activity/{{ $id }}/member/create" class="btn hidden-sm-down btn-success">
+                            	<i class="fa fa-plus"></i> Register Activity
+                            </a>
+	                    </div>
+	                </div>
+
 					<div class="form-group">
 	                    <label class="col-md-12">ActivityName : </label>
 	                    <div class="col-md-12">

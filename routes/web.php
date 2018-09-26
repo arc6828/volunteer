@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Volunteer
 Route::resource('/activity','ActivityController');
-Route::resource('/activity-member', 'ActivityMemberController');
+Route::resource('/activity/{activity_id}/member', 'ActivityMemberController');
 Route::resource('/activity-type','ActivityTypeController');
 Route::resource('/faculty','FacultyController');
 Route::resource('/major','MajorController');
@@ -61,4 +61,3 @@ Route::get('/table-basic', function () {
 Route::get('/bootstrap', function () {
  return view('bootstrap/index');
 });
-

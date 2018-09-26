@@ -85,7 +85,8 @@ class ActivityController extends Controller
     {
         $table_activity = ActivityModel::select_by_id($id);
         $data = [
-            'table_activity' => $table_activity
+            'table_activity' => $table_activity,
+            'id' => $id
         ];
         return view('volunteer/activity/show',$data);
     }
@@ -107,6 +108,7 @@ class ActivityController extends Controller
             'table_activity_type' => $table_activity_type,
             'table_semester' => $table_semester,
             'table_major' => $table_major,
+            'id' => $id
         ];
         return view('volunteer/activity/edit',$data);
     }
