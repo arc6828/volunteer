@@ -1,6 +1,6 @@
 @extends('monster-lite/layouts/theme')
 
-@section('title','Edit activity')
+@section('title','Edit Semester')
 
 @section('breadcrumb-menu')
 
@@ -12,17 +12,17 @@
 	<div class="col-md-6">
 		<div class="card">
 		    <div class="card-block">
-			    @forelse($table_activity as $row)
-		    	<div class="row"> 
-		    		<div class="col-md-9 align-self-center">		    			
-				        <h4 class="card-title">Item : {{ $row->id_activity }}</h4>
+			    @forelse($table_semester as $row)
+		    	<div class="row">
+		    		<div class="col-md-9 align-self-center">
+				        <h4 class="card-title">Item : {{ $row->semester_id }}</h4>
 				        <h6 class="card-subtitle">Update new infomation in the form</h6>
 		    		</div>
-		    		<div class="col-md-3 align-self-center">							
+		    		<div class="col-md-3 align-self-center">
 						<div class="dropdown pull-right">
-							<button type="button" class="btn btn-secondary btn-circle btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" style="border: none;"><i class="fa fa-ellipsis-v"></i> </button>							
+							<button type="button" class="btn btn-secondary btn-circle btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" style="border: none;"><i class="fa fa-ellipsis-v"></i> </button>
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-								<form id="form-delete" style="display: none;" action="{{ url('/') }}/activity/{{ $row->id_activity }}" method="POST">
+								<form id="form-delete" style="display: none;" action="{{ url('/') }}/activity/{{ $row->semester_id }}" method="POST">
 									{{ csrf_field() }}
 									{{ method_field('DELETE') }}
 									<button class="btn btn-danger" type="submit">
@@ -33,72 +33,69 @@
 									<i class="fa fa-trash-o"></i> Remove
 								</a>
 							</div>
-						</div>			
+						</div>
 		    		</div>
 		    	</div>
-		    	
-    			<form class="form-material" action="{{ url('/') }}/activity/{{ $row->id_activity }}" method="POST">
+
+    			<form class="form-material" action="{{ url('/') }}/semester/{{ $row->semester_id }}" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('PUT') }}
 					<div class="form-group">
-	                    <label class="col-md-12">ActivityName</label>
+	                    <label class="col-md-12">ปีการศึกษา</label>
 	                    <div class="col-md-12">
-							<input type="text" name="activity_name" class="form-control form-control-line" value="{{ $row->activity_name }}" readonly>
+							<select name="semester_year" class="form-control" required>
+                                <option value="" >None</option>
+								@foreach($table_semester_year as $row_semester_year)
+								<option value="{{ $row_semester_year }}" {{ $row_semester_year === $row->semester_year ? "selected":"" }}>
+									{{ $row_semester_year }}
+								</option>
+								@endforeach
+							</select>
 	                    </div>
 	                </div>
 					<div class="form-group">
-	                    <label class="col-md-12">Date Start</label>
+	                    <label class="col-md-12">ภาคเรียนที่</label>
 	                    <div class="col-md-12">
-							<input type="date" name="date_start" class="form-control form-control-line"  value="{{ $row->date_start }}" readonly>
+							<select name="semester_no" class="form-control" required>
+                                <option value="" >None</option>
+								@foreach($table_semester_no as $row_semester_no)
+								<option value="{{ $row_semester_no }}"  {{ $row_semester_no === $row->semester_no ? "selected":"" }}>
+									{{ $row_semester_no }}
+								</option>
+								@endforeach
+							</select>
 	                    </div>
 	                </div>
-	                <div class="form-group">
-	                    <label class="col-md-12">Place</label>
+					<div class="form-group">
+	                    <label class="col-md-12">ภาค</label>
 	                    <div class="col-md-12">
-							<input type="text" name="place" class="form-control form-control-line"  value="{{ $row->place }}" readonly>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-	                    <label class="col-md-12">Max hour</label>
-	                    <div class="col-md-12">
-							<input type="number" name="max_hour"  class="form-control form-control-line"  value="{{ $row->max_hour }}" readonly>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-	                    <label class="col-md-12">ID semester</label>
-	                    <div class="col-md-12">
-							<input type="number" name="id_semester"  class="form-control form-control-line" value="{{ $row->id_semester }}" readonly>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-	                    <label class="col-md-12">Id activity type</label>
-	                    <div class="col-md-12">
-							<input type="number" name="id_activity_type"  class="form-control form-control-line" value="{{ $row->id_activity_type }}" readonly>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-	                    <label class="col-md-12">Id major</label>
-	                    <div class="col-md-12">
-							<input type="number" name="id_major"  class="form-control form-control-line" value="{{ $row->id_major }}" readonly>
+							<select name="semester_type" class="form-control" required>
+                                <option value="" >None</option>
+								@foreach($table_semester_type as $row_semester_type)
+								<option value="{{ $row_semester_type }}" {{ $row_semester_type === $row->semester_type ? "selected":"" }}>
+									{{ $row_semester_type }}
+								</option>
+								@endforeach
+							</select>
 	                    </div>
 	                </div>
 	                <div class="form-group">
                         <div class="col-sm-12">
                         	<div class="pull-right">
 								<a class="btn btn-outline-primary" href="{{ url('/') }}/activity">back</a>
-								<button class="btn btn-success" type="submit" >Update</button>                        		
+								<button class="btn btn-success" type="submit" >Update</button>
                         	</div>
                         </div>
-                    </div>					
-				</form>		
+                    </div>
+				</form>
 
 				@empty
 				<div class="text-center">
-					This activity id ({{ $row->id_activity }}) does not exist
+					This semester id  does not exist
 				</div>
-				@endforelse    
-			</div>	
-		</div>	
-	</div>	
+				@endforelse
+			</div>
+		</div>
+	</div>
 </div>
-@endsection 
+@endsection

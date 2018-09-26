@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MajorModel;
+use App\FacultyModel;
 use Illuminate\Http\Request;
 
 class MajorController extends Controller
@@ -19,13 +20,13 @@ class MajorController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new MajorModel();
-        /*$table_customer = $model->select();*/
-         $q = $request->input('q');
-        $table_major = $model->select_search($q);
-
-        $data = ['table_major' => $table_major,'q' => $q];
-        return view('monster-lite/major/index',$data);
+        $q = $request->input('q');
+        $table_major = MajorModel::select_by_major_name($q);
+        $data = [
+            'table_major' => $table_major,
+            'q' => $q
+        ];
+        return view('volunteer/major/index',$data);
     }
     /**
      * Show the form for creating a new resource.
@@ -34,9 +35,12 @@ class MajorController extends Controller
      */
     public function create()
     {
-    return view('monster-lite/major/create');
+        $table_faculty = FacultyModel::select_all();
+        $data = [
+            'table_faculty' => $table_faculty
+        ];
+        return view('volunteer/major/create',$data);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -45,15 +49,13 @@ class MajorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
- {
-        $major_name = $request->input('major_name');
-        $id_faculty = $request->input('id_faculty');
-       
-        $model = new MajorModel();
-        $model->insert($major_name, $id_faculty );
-
+    {
+        $input = [
+            'major_name' => $request->input('major_name'),
+            'faculty_id' => $request->input('faculty_id')
+        ];
+        MajorModel::insert($input);
         return redirect('/major');
-
     }
 
     /**
@@ -62,17 +64,14 @@ class MajorController extends Controller
      * @param  \App\MajorModel  $majorModel
      * @return \Illuminate\Http\Response
      */
-    public function show($id_major_auto)
+    public function show($id)
     {
-        $model = new MajorModel();
-        $table_major = $model->select_id($id_major_auto);
+        $table_major = MajorModel::select_by_id($id);
         $data = [
             'table_major' => $table_major
         ];
-        return view('monster-lite/major/show',$data);
-
+        return view('volunteer/major/show',$data);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -80,14 +79,15 @@ class MajorController extends Controller
      * @param  \App\MajorModel  $majorModel
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_major_auto)
+    public function edit($id)
    {
-        $model = new MajorModel();
-        $table_major = $model->select_id($id_major_auto);
-        $data = [
-            'table_major' => $table_major
-        ];
-        return view('monster-lite/major/edit',$data);
+       $table_major = MajorModel::select_by_id($id);
+       $table_faculty = FacultyModel::select_all();
+       $data = [
+           'table_major' => $table_major,
+           'table_faculty' => $table_faculty
+       ];
+        return view('volunteer/major/edit',$data);
 
     }
 
@@ -98,14 +98,13 @@ class MajorController extends Controller
      * @param  \App\MajorModel  $majorModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_major_auto)
+    public function update(Request $request, $id)
    {
-        $major_name = $request->input('major_name');
-        $id_faculty = $request->input('id_faculty');
-
-        $model = new MajorModel();
-        $model->update($major_name, $id_faculty,$id_major_auto);
-
+        $input = [
+           'major_name' => $request->input('major_name'),
+           'faculty_id' => $request->input('faculty_id')
+        ];
+        MajorModel::update_by_id($input,$id);
         return redirect('/major');
 
     }
@@ -116,12 +115,9 @@ class MajorController extends Controller
      * @param  \App\MajorModel  $majorModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_major_auto)
+    public function destroy($id)
     {
-         $model = new MajorModel();
-        $model->delete($id_major_auto);
-
+        MajorModel::delete_by_id($id);
         return redirect('/major');
-
-    }           
+    }
 }

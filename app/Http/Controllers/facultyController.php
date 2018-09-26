@@ -14,17 +14,13 @@ class FacultyController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new facultyModel();
-        /*$table_traintrip = $model->select();*/
-        /*$data = ['table_traintrip' => $table_traintrip];*/
-       $q = $request->input('q');
-        $table_faculty = $model->select_search($q);
-
+        $q = $request->input('q');
+        $table_faculty = FacultyModel::select_by_faculty_name($q);
         $data = [
             'table_faculty' => $table_faculty,
             'q' => $q
         ];
-        return view('monster-lite/faculty/index',$data);
+        return view('volunteer/faculty/index',$data);
     }
 
     /**
@@ -34,7 +30,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('monster-lite/faculty/create');
+        return view('volunteer/faculty/create');
     }
 
     /**
@@ -45,14 +41,12 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $model = new facultyModel();
-        $model->insert($name);
-
+        $input = [
+            'faculty_name' => $request->input('faculty_name')
+        ];
+        FacultyModel::insert($input);
         return redirect('/faculty');
-
     }
-
 
     /**
      * Display the specified resource.
@@ -60,14 +54,13 @@ class FacultyController extends Controller
      * @param  \App\CustomerModel  $customerModel
      * @return \Illuminate\Http\Response
      */
-    public function show($id_faculty_auto)
+    public function show($id)
     {
-        $model = new facultyModel();
-        $table_faculty = $model->select_id_faculty_auto($id_faculty_auto);
+        $table_faculty = FacultyModel::select_by_id($id);
         $data = [
             'table_faculty' => $table_faculty
         ];
-        return view('monster-lite/faculty/show',$data);
+        return view('volunteer/faculty/show',$data);
 
     }
     /**
@@ -76,15 +69,13 @@ class FacultyController extends Controller
      * @param  \App\CustomerModel  $customerModel
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_faculty_auto)
+    public function edit($id)
     {
-        $model = new facultyModel();
-        $table_faculty = $model->select_id_faculty_auto($id_faculty_auto);
+        $table_faculty = FacultyModel::select_by_id($id);
         $data = [
             'table_faculty' => $table_faculty
         ];
-        return view('monster-lite/faculty/edit',$data);
-
+        return view('volunteer/faculty/edit',$data);
     }
 
     /**
@@ -94,11 +85,12 @@ class FacultyController extends Controller
      * @param  \App\CustomerModel  $customerModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_faculty_auto)
+    public function update(Request $request, $id)
     {
-        $name = $request->input('name');
-        $model = new facultyModel();
-        $model->update($name,$id_faculty_auto);
+        $input = [
+            'faculty_name' => $request->input('faculty_name')
+        ];
+        FacultyModel::update_by_id($input,$id);
         return redirect('/faculty');
 
     }
@@ -109,12 +101,9 @@ class FacultyController extends Controller
      * @param  \App\CustomerModel  $customerModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_faculty_auto)
+    public function destroy($id)
     {
-        $model = new facultyModel();
-        $model->delete($id_faculty_auto);
-
+        FacultyModel::delete_by_id($id);
         return redirect('/faculty');
-
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\StudentModel;
+use App\MajorModel;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -10,9 +11,9 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:admin_dsd,admin_faculty') ;
+        //$this->middleware('role:admin_dsd,admin_faculty') ;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -20,18 +21,13 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new StudentModel();
-        //$table_student = $model->select();
         $q = $request->input('q');
-        $table_student = $model->select_search($q);
-
+        $table_student = StudentModel::select_by_student_name($q);
         $data = [
-        'table_student' => $table_student,
-        'q' => $q
-
-
+            'table_student' => $table_student,
+            'q' => $q
         ];
-        return view('monster-lite/student/index',$data);
+        return view('volunteer/student/index',$data);
     }
 
     /**
@@ -41,7 +37,12 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('monster-lite/student/create');
+        $table_major = MajorModel::select_all();
+        $data = [
+            'table_major' => $table_major,
+            'table_degree' => ["ปริญญาตรี","ปริญญาโท","ปริญญาเอก"],
+        ];
+        return view('volunteer/student/create',$data);
     }
 
     /**
@@ -52,15 +53,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $id_student = $request->input('id_student');
-        $stu_name = $request->input('stu_name');
-        $stu_lastname = $request->input('stu_lastname');
-        $degree = $request->input('degree');
-        $major = $request->input('major');
-
-        $model = new StudentModel();
-        $model->insert( $id_student,  $stu_name, $stu_lastname, $degree, $major);
+        $input = [
+            'student_id' => $request->input('student_id'),
+            'student_name' => $request->input('student_name'),
+            'degree' => $request->input('degree'),
+            'major_id' => $request->input('major_id'),
+        ];
+        StudentModel::insert( $input);
         return redirect('/student');
     }
 
@@ -72,12 +71,11 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $model = new StudentModel();
-        $table_student = $model->select_id($id);
+        $table_student = StudentModel::select_by_id($id);
         $data = [
-        'table_student' => $table_student
+            'table_student' => $table_student
         ];
-        return view('monster-lite/student/show',$data);
+        return view('volunteer/student/show',$data);
 
     }
 
@@ -87,14 +85,16 @@ class StudentController extends Controller
      * @param  \App\StudentModel  $studentModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentModel $studentModel)
+    public function edit($id)
     {
-        $model = new StudentModel();
-        $table_student = $model->select_id($id);
+        $table_student = StudentModel::select_by_id($id);
+        $table_major = MajorModel::select_all();
         $data = [
-        'table_student' => $table_student
+            'table_student' => $table_student,
+            'table_major' => $table_major,
+            'table_degree' => ["ปริญญาตรี","ปริญญาโท","ปริญญาเอก"],
         ];
-        return view('monster-lite/student/edit',$data);
+        return view('volunteer/student/edit',$data);
 
     }
 
@@ -107,13 +107,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id_student = $request->input('id_student');
-        $stu_name = $request->input('stu_name');
-        $stu_lastname = $request->input('stu_lastname');
-        $degree = $request->input('degree');
-        $major = $request->input('major');
-        $model = new StudentModel();
-        $model->update($id_student, $stu_name, $stu_lastname, $degree, $major, $id);
+        $input = [
+            'student_id' => $request->input('student_id'),
+            'student_name' => $request->input('student_name'),
+            'degree' => $request->input('degree'),
+            'major_id' => $request->input('major_id'),
+        ];
+        StudentModel::update_by_id($input , $id);
         return redirect('/student');
     }
 
@@ -125,11 +125,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $model = new StudentModel();
-        $model->delete($id);
+        StudentModel::delete_by_id($id);
         return redirect('/student');
-
     }
 
-    
+
 }

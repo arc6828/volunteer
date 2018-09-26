@@ -16,63 +16,60 @@ class ActivityTypeController extends Controller
 
 	public function index(Request $request)
 	{
-		$model = new ActivityTypeModel();
-		//$table_activity_type = $model->select();
 		$q = $request->input('q');
-		$table_activity_type = $model->select_search($q);
+		$table_activity_type = ActivityTypeModel::select_by_activity_type_name($q);
 		$data = [
 			'table_activity_type' => $table_activity_type,
 			'q' => $q
 		];
-		return view('monster-lite/activity_type/index',$data);
+		return view('volunteer/activity_type/index',$data);
 	}
-	    
+
 	public function create()
 	{
-		return view('monster-lite/activity_type/create');
+		return view('volunteer/activity_type/create');
 	}
 
 	public function store(Request $request)
 	{
-		$activity_type_name = $request->input('activity_type_name');
-		$model = new ActivityTypeModel();
-		$model->insert($activity_type_name);
+		$input = [
+			'activity_type_name' => $request->input('activity_type_name')
+		];
+		ActivityTypeModel::insert($input);
 		return redirect('/activity-type');
 	}
 
 
 	public function show($id)
 	{
-		$model = new ActivityTypeModel();
-		$table_activity_type = $model->select_id($id);
+		$table_activity_type = ActivityTypeModel::select_by_id($id);
 		$data = [
-		'table_activity_type' => $table_activity_type
+			'table_activity_type' => $table_activity_type
 		];
-		return view('monster-lite/activity_type/show',$data);
+		return view('volunteer/activity_type/show',$data);
 	}
 
 	public function edit($id)
 	{
-		$model = new ActivityTypeModel();
-		$table_activity_type = $model->select_id($id);
+		$table_activity_type = ActivityTypeModel::select_by_id($id);
 		$data = [
-		'table_activity_type' => $table_activity_type
+			'table_activity_type' => $table_activity_type
 		];
-		return view('monster-lite/activity_type/edit',$data);
+		return view('volunteer/activity_type/edit',$data);
 	}
 
 	public function update(Request $request, $id)
 	{
-		$activity_type_name = $request->input('activity_type_name');
-		$model = new ActivityTypeModel();
-		$model->update($activity_type_name,$id);
+		$input = [
+			'activity_type_name' => $request->input('activity_type_name')
+		];
+		ActivityTypeModel::update_by_id($input,$id);
 		return redirect('/activity-type');
 	}
-	
+
 	public function destroy($id)
 	{
-		$model = new ActivityTypeModel();
-		$model->delete($id);
+		ActivityTypeModel::delete_by_id($id);
 		return redirect('/activity-type');
 	}
 }

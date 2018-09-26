@@ -10,11 +10,36 @@
 
 @section('content')
 
+@forelse($table_activity as $row)
 <div class="row">
 	<div class="col-md-6">
 		<div class="card">
 		    <div class="card-block">
-			    @forelse($table_activity as $row)
+				<div class="row">
+		    		<div class="col-md-9 align-self-center">
+				        <h4 class="card-title">Item : {{ $row->activity_id }}</h4>
+				        <h6 class="card-subtitle">Update new infomation in the form</h6>
+		    		</div>
+				</div>
+				<div>
+					<div class="form-group">
+	                    <div class="col-md-12 text-center">
+							<div><img src="{{ url('/') }}/img/no-photo-event.jpg" width="100%"></div>
+							<div>
+								<a href="{{ url('/') }}/activity/{{ $id }}/member/create" class="btn hidden-sm-down btn-success">
+									<i class="fa fa-plus"></i> Register Activity
+								</a>
+							</div>
+	                    </div>
+	                </div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card">
+		    <div class="card-block">
 		    	<div class="row">
 		    		<div class="col-md-9 align-self-center">
 				        <h4 class="card-title">Item : {{ $row->activity_id }}</h4>
@@ -40,13 +65,7 @@
 		    	</div>
 
     			<div>
-                    <div class="form-group">
-	                    <div class="col-md-12 text-center">
-                            <a href="{{ url('/') }}/activity/{{ $id }}/member/create" class="btn hidden-sm-down btn-success">
-                            	<i class="fa fa-plus"></i> Register Activity
-                            </a>
-	                    </div>
-	                </div>
+
 
 					<div class="form-group">
 	                    <label class="col-md-12">ActivityName : </label>
@@ -116,14 +135,14 @@
                         </div>
                     </div>
 				</div>
-
-				@empty
-				<div class="text-center">
-					This activity id does not exist
-				</div>
-				@endforelse
 			</div>
 		</div>
 	</div>
 </div>
+@empty
+<div class="text-center">
+	This activity id does not exist
+</div>
+@endforelse
+
 @endsection

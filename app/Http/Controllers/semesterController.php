@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class SemesterController extends Controller
 {
-    
+
     public function __construct()
-    { 
-        $this->middleware('auth');    
+    {
+        $this->middleware('auth');
         //$this->middleware('role:admin_dsd');
     }
 
@@ -21,17 +21,13 @@ class SemesterController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new semesterModel();
-        /*$table_semester = $model->select();*/
-        /*$data = ['table_Semester' => $table_Semester];*/
-       $q = $request->input('q');
-        $table_semester = $model->select_search($q);
-
+        $q = $request->input('q');
+        $table_semester = SemesterModel::select_by_semester_year($q);
         $data = [
             'table_semester' => $table_semester,
             'q' => $q
         ];
-        return view('monster-lite/semester/index',$data);
+        return view('volunteer/semester/index',$data);
     }
 
     /**
@@ -41,7 +37,12 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        return view('monster-lite/semester/create');
+        $data = [
+            'table_semester_year'   => [2559,2560,2561,2562],
+            'table_semester_no'     => [1,2,3],
+            'table_semester_type'   => ["ภาคปกติ","ภาคพิเศษ"],
+        ];
+        return view('volunteer/semester/create',$data);
     }
 
     /**
@@ -52,11 +53,13 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('sem_name');
+        $input = [
+            'semester_year' => $request->input('semester_year'),
+            'semester_no'   => $request->input('semester_no'),
+            'semester_type' => $request->input('semester_type')      ,
+        ];
 
-        $model = new semesterModel();
-        $model->insert($sem_name);
-
+        SemesterModel::insert($input);
         return redirect('/semester');
     }
 
@@ -68,12 +71,11 @@ class SemesterController extends Controller
      */
     public function show($id_semester)
     {
-        $model = new SemesterModel();
-        $table_semester = $model->select_id_semester($id_semester);
+        $table_semester = SemesterModel::select_by_id($id);
         $data = [
             'table_semester' => $table_semester
         ];
-        return view('monster-lite/semester/show',$data);
+        return view('volunteer/semester/show',$data);
     }
 
     /**
@@ -82,14 +84,16 @@ class SemesterController extends Controller
      * @param  \App\SemesterModel  $semesterModel
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_semester)
+    public function edit($id)
     {
-        $model = new SemesterModel();
-        $table_semester = $model->select_id_semester($id_semester);
+        $table_semester = SemesterModel::select_by_id($id);
         $data = [
-            'table_Semester' => $table_Semester
+            'table_semester' => $table_semester,
+            'table_semester_year'   => [2559,2560,2561,2562],
+            'table_semester_no'     => [1,2,3],
+            'table_semester_type'   => ["ภาคปกติ","ภาคพิเศษ"],
         ];
-        return view('monster-lite/semester/show',$data);
+        return view('volunteer/semester/edit',$data);
     }
 
     /**
@@ -99,14 +103,15 @@ class SemesterController extends Controller
      * @param  \App\SemesterModel  $semesterModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, semesterModel $semesterModel)
+    public function update(Request $request, $id)
     {
-        $sem_name = $request->input('sem_name');
-  
-        $model = new semesterModel();
-        $model-> update($sem_name,$id_semester);
-
-        return redirect('/Semester');
+        $input = [
+            'semester_year' => $request->input('semester_year'),
+            'semester_no'   => $request->input('semester_no'),
+            'semester_type' => $request->input('semester_type'),
+        ];
+        SemesterModel::update_by_id($input,$id);
+        return redirect('/semester');
     }
 
     /**
@@ -115,12 +120,10 @@ class SemesterController extends Controller
      * @param  \App\SemesterModel  $semesterModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(semesterModel $semesterModel)
+    public function destroy($id)
     {
-       $model = new semesterModel();
-        $model->delete($id_semester);
-
-        return redirect('/Semester');
+        SemesterModel::delete_by_id($id);
+        return redirect('/semester');
     }
 
 }

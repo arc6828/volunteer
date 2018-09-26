@@ -53,9 +53,5 @@
 		</div>
 	</div>
 </div>
-<div  class="hide" style="position : fixed; bottom:70px; right:30px;">
-	<a href="{{ url('/') }}/activity/create" class="btn btn-circle pull-right btn-success btn-lg">
-		<i class="fa fa-plus"></i>
-	</a>
-</div>
+
 @endsection

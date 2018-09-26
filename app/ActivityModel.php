@@ -21,8 +21,9 @@ class ActivityModel  extends Model
 	}
 
 	public static function select_by_activity_name($q){
-		$sql = "SELECT * FROM activity WHERE activity_name LIKE '%{$q}%'";
-		return DB::select($sql, []);
+        return DB::table('activity')
+            ->where('activity_name', 'like' , "%{$q}%" )
+            ->get();
 	}
 
 	public static function insert($input){
