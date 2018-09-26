@@ -16,8 +16,7 @@ class ActivityMemberController extends Controller
     public function index(Request $request, $activity_id)
     {
         $q = $request->input('q');
-        $table_activity_member =ActivityMemberModel::select_all($activity_id);
-
+        $table_activity_member =ActivityMemberModel::select_by_student_name($activity_id,$q);
         $data = [
             'table_activity_member' => $table_activity_member,
             'q' => $q,
@@ -33,7 +32,10 @@ class ActivityMemberController extends Controller
      */
     public function create($activity_id)
     {
-        return view('volunteer/activity_member/create');
+        $data = [
+            'activity_id' => $activity_id
+        ];
+        return view('volunteer/activity_member/create',$data);
     }
 
     /**
@@ -44,14 +46,13 @@ class ActivityMemberController extends Controller
      */
     public function store(Request $request, $activity_id)
     {
-        $id_student = $request->input('id_student');
-        $id_activity = $request->input('id_activity');
-        $hour = $request->input('hour');
-
-        $model = new ActivityMemberModel();
-        $model->insert($id_student, $id_activity, $hour);
-
-        return redirect('activity/{$activity_id}/member');
+        $input = [
+            'serial'            => $request->input('serial'),
+            'activity_id'       => $request->input('activity_id',$activity_id),
+            'duration_hour'     => $request->input('duration_hour',0),
+        ];
+        ActivityMemberModel::insert($input);
+        return redirect("activity/{$activity_id}/member");
 
     }
 
@@ -63,13 +64,12 @@ class ActivityMemberController extends Controller
      */
     public function show($activity_id, $id)
     {
-        $model = new ActivityMemberModel();
-        $table_activity_member = $model->select_id($id);
+        $table_activity_member = ActivityMemberModel::select_by_id($activity_id, $id);
         $data = [
-            'table_activity_member' => $table_activity_member
+            'table_activity_member' => $table_activity_member,
+            'activity_id' => $activity_id
         ];
         return view('volunteer/activity_member/show',$data);
-
     }
 
     /**
@@ -80,13 +80,12 @@ class ActivityMemberController extends Controller
      */
     public function edit($activity_id, $id)
     {
-        $model = new ActivityMemberModel();
-        $table_activity_member = $model->select_id($id);
+        $table_activity_member = ActivityMemberModel::select_by_id($activity_id, $id);
         $data = [
-            'table_activity_member' => $table_activity_member
+            'table_activity_member' => $table_activity_member,
+            'activity_id' => $activity_id
         ];
         return view('volunteer/activity_member/edit',$data);
-
     }
 
     /**
@@ -102,10 +101,9 @@ class ActivityMemberController extends Controller
         $id_activity = $request->input('id_activity');
         $hour = $request->input('hour');
 
-        $model = new ActivityMemberModel();
-        $model->update($id_student, $id_activity, $hour,$id);
+        ActivityMemberModel::update($id_student, $id_activity, $hour,$id);
 
-        return redirect('activity/{$activity_id}/member');
+        return redirect("activity/{$activity_id}/member");
 
     }
 
@@ -120,7 +118,7 @@ class ActivityMemberController extends Controller
         $model = new ActivityMemberModel();
         $model->delete($id);
 
-        return redirect('activity/{$activity_id}/member');
+        return redirect("activity/{$activity_id}/member");
 
     }
 

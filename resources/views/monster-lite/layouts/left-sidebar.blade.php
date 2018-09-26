@@ -1,5 +1,5 @@
 <aside class="left-sidebar">
-    
+
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <div class="text-center">
@@ -11,11 +11,11 @@
         <nav class="sidebar-nav">
 
             <ul id="sidebarnav">
-                
+
                 <li>
                     <a href="{{url('/')}}/activity" class="waves-effect"><i class="fa fa-cube m-r-10" aria-hidden="true"></i>Activity</a>
                 </li>
-                <li>
+                <li class="hide">
                     <a href="{{url('/')}}/activity-member" class="waves-effect"><i class="fa fa-users m-r-10" aria-hidden="true"></i>Activity Member</a>
                 </li>
                 <li>

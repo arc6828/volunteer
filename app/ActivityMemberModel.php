@@ -9,18 +9,28 @@ class ActivityMemberModel extends Model
 {
     public static function select_all($activity_id){
         return DB::table('activity_member')
-            ->where('activity_id', $activity_id)
+            ->join('activity', 'activity_member.activity_id', '=', 'activity.activity_id')
+            ->join('student', 'activity_member.serial', '=', 'student.serial')
+            ->where('activity_member.activity_id', $activity_id)
             ->get();
 	}
 
 	public static function select_by_id($activity_id, $id){
-		$sql = "select * from activity_member where id_act_mem_auto = {$id}";
-		return DB::select($sql, []);
+        return DB::table('activity_member')
+            ->join('activity', 'activity_member.activity_id', '=', 'activity.activity_id')
+            ->join('student', 'activity_member.serial', '=', 'student.serial')
+            ->where('activity_member.activity_id', '=' , $activity_id )
+            ->where('activity_member.activity_member_id', '=' , $id )
+            ->get();
 	}
 
-	public static function select_by_($activity_id, $q){
-		$sql = "select * from activity_member where id_act_mem_auto like '%{$q}%'";
-		return DB::select($sql, []);
+	public static function select_by_student_name($activity_id, $q){
+        return DB::table('activity_member')
+            ->join('activity', 'activity_member.activity_id', '=', 'activity.activity_id')
+            ->join('student', 'activity_member.serial', '=', 'student.serial')
+            ->where('activity_member.activity_id', '=' , $activity_id )
+            ->where('student.student_name', 'like' , "%{$q}%" )
+            ->get();
 	}
 
 	public static function insert($input){

@@ -3,7 +3,7 @@
 @section('title','Activity Member')
 
 @section('breadcrumb-menu')
-<a href="{{ url('/') }}/activity/{{ $activity_id }}/member/create" class="btn pull-right hidden-sm-down btn-success"> 
+<a href="{{ url('/') }}/activity/{{ $activity_id }}/member/create" class="btn pull-right hidden-sm-down btn-success">
 	<i class="fa fa-plus"></i> New Activity Member
 </a>
 @endsection
@@ -28,9 +28,10 @@
 			<table class="table table-hover text-center">
 				<thead class="thead-dark">
 					<tr>
-						<th>รหัส activity_member</th>
-						<th>รหัส student</th>
-						<th>หัส activity</th>
+						<th>#</th>
+						<th>รหัสนักศึกษา</th>
+						<th>ชื่อ-สกุล</th>
+						<th>กิจกรรม</th>
 						<th>ชั่วโมงที่ทำกิจกรรม</th>
 						<th>action</th>
 					</tr>
@@ -38,12 +39,13 @@
 				<tbody>
 					@foreach($table_activity_member as $row)
 					<tr>
-						<td>{{ $row->id_act_mem_auto }} </td>
-						<td>{{ $row->id_student }} </td>
-						<td>{{ $row->id_activity }}</td>
-						<td>{{ $row->hour }}</td>
+						<td>{{ $row->activity_member_id }} </td>
+						<td>{{ $row->student_id }} </td>
+						<td>{{ $row->student_name }} </td>
+						<td>{{ $row->activity_name }}</td>
+						<td>{{ $row->duration_hour }}</td>
 						<td>
-							<a href="{{ url('/') }}/activity-member/{{ $row->id_act_mem_auto }}/edit">
+							<a href="{{ url('/') }}/activity/{{ $row->activity_id }}/member/{{ $row->activity_member_id }}/edit">
 								<i class="fa fa-edit"></i> Edit
 							</a>
 						</td>

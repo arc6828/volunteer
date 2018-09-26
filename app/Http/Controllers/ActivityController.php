@@ -103,6 +103,7 @@ class ActivityController extends Controller
         $table_activity_type = ActivityTypeModel::select_all();
         $table_semester = SemesterModel::select_all();
         $table_major = MajorModel::select_all();
+
         $data = [
             'table_activity' => $table_activity,
             'table_activity_type' => $table_activity_type,
